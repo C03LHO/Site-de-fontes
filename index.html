@@ -1062,7 +1062,7 @@ header h1 {
                 <div class="control-group">
                     <label for="highlightColor">Cor do Marca Texto:</label>
                     <input type="color" id="highlightColor" value="#ffff00">
-                    <button id="toggleHighlight" class="toggle-btn">Desativar</button>
+                    <button id="toggleHighlight" class="toggle-btn">Ativar</button>
                 </div>
 
                 <div class="control-group">
@@ -1211,8 +1211,8 @@ let fonts = [
 // Estado da aplicação
 let currentFont = 'Inter';
 let fontSize = 24;
-let textColor = '#ffffff';
-let highlightColor = '#2d1e5e';
+let textColor = '#000000';
+let highlightColor = '#ffff00';
 let highlightEnabled = false;
 let favorites = JSON.parse(localStorage.getItem('fontFavorites')) || [];
 let history = JSON.parse(localStorage.getItem('fontHistory')) || [];
@@ -1674,6 +1674,9 @@ function showCardCopyFeedback() {
 
 // Inicialização
 async function init() {
+    // Carregar configurações salvas ANTES de renderizar
+    loadSavedSettings();
+
     // Carregar custom fonts salvas pelo usuário
     addedGoogleFonts.forEach(font => {
         loadGoogleFontDynamic(font, true);
@@ -1686,7 +1689,6 @@ async function init() {
     updatePreview();
     renderResults();
     renderHistory();
-    loadSavedSettings();
 }
 
 // Carregar configurações salvas
@@ -1964,7 +1966,7 @@ showDeletedBtn.addEventListener('click', () => {
     if (fontsToDelete.length === 0) {
         alert('Nenhum fonte marcada para exclusão.');
     } else {
-        if(confirm('Fontes marcadas para deletar:\n' + fontsToDelete.join('\\n') + '\n\nDeseja copiar esta lista para enviar ao Aurel/IA?')) {
+        if(confirm('Fontes marcadas para deletar:\n' + fontsToDelete.join('\n') + '\n\nDeseja copiar esta lista para enviar ao Aurel/IA?')) {
             navigator.clipboard.writeText(fontsToDelete.join(', ')).then(() => alert('Copiado para a área de transferência!'));
         }
     }
