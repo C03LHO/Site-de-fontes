@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Fontes - Teste e Explore Fontes</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14 18-4-4 4-4'/%3E%3Cpath d='M4 14v4a2 2 0 0 0 2 2h4'/%3E%3Cpath d='M20 10V6a2 2 0 0 0-2-2h-4'/%3E%3C/svg%3E">
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Cores do Dashboard - Tema Claro */
+    --background: 210 20% 98%;
+    --foreground: 220 20% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
+    --primary: 155 100% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 95% 53%;
+    --secondary-foreground: 220 20% 15%;
+    --muted: 210 15% 95%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 155 50% 95%;
+    --accent-foreground: 155 100% 25%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 155 100% 25%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 95% 53%;
+    --warning-foreground: 220 20% 15%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 155 100% 25%;
+    --radius: .75rem;
+
+    /* Gradientes */
+    --gradient-header: linear-gradient(135deg, hsl(155 100% 25%) 0%, hsl(155 80% 30%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 20% 98%) 100%);
+    
+    /* Sombras */
+    --shadow-card: 0 4px 24px -4px hsl(220 20% 15% / .08);
+    --shadow-card-hover: 0 8px 32px -4px hsl(220 20% 15% / .12);
+    --shadow-elevated: 0 12px 40px -8px hsl(220 20% 15% / .15);
+    
+    /* Cores auxiliares */
+    --star-color: #fbbf24;
+}
+
+.dark {
+    /* Cores do Dashboard - Tema Escuro */
+    --background: 220 20% 10%;
+    --foreground: 210 20% 98%;
+    --card: 220 20% 13%;
+    --card-foreground: 210 20% 98%;
+    --popover: 220 20% 13%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 155 80% 40%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 45 95% 53%;
+    --secondary-foreground: 220 20% 15%;
+    --muted: 220 15% 20%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 155 50% 20%;
+    --accent-foreground: 155 80% 70%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 155 80% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 45 95% 53%;
+    --warning-foreground: 220 20% 15%;
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 155 80% 40%;
+
+    /* Gradientes */
+    --gradient-header: linear-gradient(135deg, hsl(155 80% 30%) 0%, hsl(155 60% 25%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(220 20% 13%) 0%, hsl(220 20% 11%) 100%);
+
+    /* Sombras */
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / .3);
+    --shadow-card-hover: 0 8px 32px -4px hsl(0 0% 0% / .4);
+    --shadow-elevated: 0 12px 40px -8px hsl(0 0% 0% / .5);
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+header {
+    text-align: left;
+    margin-bottom: 40px;
+    padding: 48px 32px;
+    background: var(--gradient-header);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-elevated);
+    color: hsl(var(--primary-foreground));
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 10 0 L 0 0 0 10' fill='none' stroke='currentColor' stroke-width='0.5'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 33%;
+    opacity: 0.2;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 100 L60 60 L70 70 L80 40 L90 50 L100 30 L110 45 L120 35 L130 55 L140 45 L150 60 L160 50 L170 70 L180 60 L190 80 L200 70 L200 100 Z' fill='currentColor'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right top;
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.subtitle {
+    font-size: 1.15rem;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 250px 1fr 350px;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Painel de Controles */
+.controls-panel {
+    background: var(--gradient-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    border: 1px solid hsl(var(--border));
+    transition: all 0.3s ease;
+}
+
+.controls-panel:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    border-color: hsl(var(--border));
+}
+
+.control-group {
+    margin-bottom: 25px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: hsl(var(--foreground));
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+}
+
+.font-size-hint {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 400;
+}
+
+.font-size-unified {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.font-size-unified input[type="number"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid hsl(var(--input));
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 1rem;
+    font-weight: 600;
+    min-width: 0;
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    transition: all 0.2s ease;
+}
+
+.font-size-unified input[type="number"]:focus {
+    outline: none;
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+}
+
+.font-size-unit {
+    font-weight: 600;
+    color: hsl(var(--muted-foreground));
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.font-size-quick-menu {
+    position: relative;
+}
+
+.quick-size-btn {
+    padding: 10px 12px;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: hsl(var(--foreground));
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+}
+
+.quick-size-btn:hover {
+    background: hsl(var(--accent));
+    border-color: hsl(var(--ring));
+    color: hsl(var(--accent-foreground));
+}
+
+.quick-size-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: var(--shadow-elevated);
+    min-width: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    padding: 4px;
+}
+
+.quick-size-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.quick-size-dropdown::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+}
+
+.quick-size-dropdown::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+}
+
+.quick-size-dropdown::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.3);
+}
+
+.quick-size-dropdown.show {
+    display: block;
+}
+
+.quick-size-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: calc(var(--radius) - 4px);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+    transition: all 0.15s ease;
+    text-align: center;
+}
+
+.quick-size-item:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+/* Custom Font Adder */
+.add-font-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.add-font-container input[type="text"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid hsl(var(--input));
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.9rem;
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    transition: all 0.2s ease;
+}
+
+.add-font-container input[type="text"]:focus {
+    outline: none;
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+}
+
+.add-font-btn {
+    padding: 10px 14px;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-font-btn:hover {
+    background: hsl(var(--primary) / 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+}
+
+.add-font-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.quick-size-item.active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 600;
+}
+
+.control-group .label-word {
+    margin-top: 4px;
+}
+
+
+.control-group input[type="color"] {
+    width: 100%;
+    height: 44px;
+    border: 1px solid hsl(var(--input));
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-group input[type="color"]:hover {
+    border-color: hsl(var(--ring));
+}
+
+.toggle-btn {
+    width: 100%;
+    padding: 10px 16px;
+    margin-top: 10px;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.2);
+}
+
+.toggle-btn:hover {
+    background: hsl(var(--primary) / 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+}
+
+.toggle-btn.active {
+    background: hsl(var(--success));
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 10px 16px;
+    background: hsl(var(--destructive));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px hsl(var(--destructive) / 0.2);
+}
+
+.btn-secondary:hover {
+    background: hsl(var(--destructive) / 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(var(--destructive) / 0.3);
+}
+
+/* Área de Texto */
+.text-area-container {
+    background: var(--gradient-card);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid hsl(var(--border));
+    transition: all 0.3s ease;
+}
+
+.text-area-container:hover {
+    box-shadow: var(--shadow-card-hover);
+}
+
+.text-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -10px;
+}
+
+.text-header h3 {
+    font-size: 1.25rem;
+    color: hsl(var(--foreground));
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.copy-btn {
+    padding: 10px 20px;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.2);
+}
+
+.copy-btn:hover {
+    background: hsl(var(--primary) / 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+}
+
+.copy-btn.copied {
+    background: hsl(var(--success));
+}
+
+.powerbi-note {
+    margin-top: -10px;
+    padding: 14px 16px;
+    background: hsl(var(--accent));
+    border-left: 4px solid hsl(var(--primary));
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875rem;
+    color: hsl(var(--accent-foreground));
+    line-height: 1.6;
+}
+
+.powerbi-note strong {
+    color: hsl(var(--primary));
+    font-weight: 700;
+}
+
+#textInput {
+    width: 100%;
+    min-height: 150px;
+    padding: 16px;
+    border: 1px solid hsl(var(--input));
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 15px;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.2s ease;
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+}
+
+#textInput:focus {
+    outline: none;
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+}
+
+.text-preview {
+    min-height: 200px;
+    padding: 24px;
+    border: 1px dashed hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    background: hsl(var(--muted));
+    font-size: 24px;
+    line-height: 1.7;
+    word-wrap: break-word;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.text-preview:hover {
+    border-color: hsl(var(--ring));
+    background: hsl(var(--accent));
+    transform: scale(1.01);
+}
+
+/* Painel de Fontes */
+.fonts-panel {
+    background: var(--gradient-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid hsl(var(--border));
+    transition: all 0.3s ease;
+}
+
+.fonts-panel:hover {
+    box-shadow: var(--shadow-card-hover);
+}
+
+.fonts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid hsl(var(--border));
+}
+
+.fonts-header h2 {
+    font-size: 1.3rem;
+    color: hsl(var(--foreground));
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 6px 14px;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 4px);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: hsl(var(--muted-foreground));
+}
+
+.filter-btn:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.filter-btn.active {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.2);
+}
+
+.fonts-list {
+    overflow-y: auto;
+    flex: 1;
+    padding-right: 5px;
+}
+
+.font-item {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: hsl(var(--muted));
+}
+
+.font-item:hover {
+    border-color: hsl(var(--ring));
+    background: hsl(var(--accent));
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.1);
+}
+
+.font-item.active {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--accent));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+}
+
+.font-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: hsl(var(--foreground));
+}
+
+.star-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: calc(var(--radius) - 4px);
+    transition: all 0.2s;
+    color: hsl(var(--muted-foreground));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.star-btn:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--primary));
+    transform: scale(1.1);
+}
+
+.star-btn.favorited {
+    color: var(--star-color);
+}
+
+/* Seção de Resultados */
+.results-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.results-header {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.results-header-icon {
+    padding: 12px;
+    border-radius: var(--radius);
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.results-header-text {
+    flex: 1;
+}
+
+.results-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: hsl(var(--primary));
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+
+.results-subtitle {
+    font-size: 0.95rem;
+    color: hsl(var(--muted-foreground));
+    font-weight: 400;
+}
+
+.results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .results-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+.result-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    opacity: 0.05;
+    background: radial-gradient(circle at top right, hsl(var(--primary)), transparent 70%);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.result-card:hover::before {
+    opacity: 0.15;
+}
+
+.result-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    border-color: hsl(var(--border));
+}
+
+.result-buttons {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.result-favorite-btn,
+.result-copy-btn {
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 4px);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+    color: hsl(var(--foreground));
+}
+
+.result-favorite-btn {
+    font-size: 1.2rem;
+}
+
+.result-favorite-btn.favorited {
+    opacity: 1;
+    color: var(--star-color);
+    background: hsl(var(--accent));
+    border-color: var(--star-color);
+}
+
+.result-card:hover .result-favorite-btn,
+.result-card:hover .result-copy-btn {
+    opacity: 1;
+}
+
+.result-favorite-btn:hover {
+    transform: scale(1.15);
+    background: hsl(var(--accent));
+    border-color: var(--star-color);
+    color: var(--star-color);
+}
+
+.result-favorite-btn.favorited:hover {
+    background: hsl(var(--accent));
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+}
+
+.result-copy-btn:hover {
+    transform: scale(1.1);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+}
+
+.result-card.favorited {
+    border-left: 4px solid var(--star-color);
+}
+
+.result-text {
+    font-size: 1.5rem;
+    line-height: 1.7;
+    color: hsl(var(--foreground));
+    margin-bottom: 14px;
+    min-height: 70px;
+    word-wrap: break-word;
+    padding-right: 100px;
+    padding-top: 4px;
+}
+
+.result-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.result-tag {
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: calc(var(--radius) - 4px);
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.result-tag.tag-sans-serif { background: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); }
+.result-tag.tag-serif { background: hsl(var(--secondary) / 0.15); color: hsl(var(--secondary)); }
+.result-tag.tag-script { background: hsl(var(--accent) / 0.8); color: hsl(var(--accent-foreground)); }
+.result-tag.tag-display { background: hsl(var(--warning) / 0.15); color: hsl(var(--warning)); }
+.result-tag.tag-mono { background: hsl(var(--muted)); color: hsl(var(--foreground)); border: 1px solid hsl(var(--border)); }
+
+/* Notificação de cópia */
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: hsl(var(--success));
+    color: hsl(var(--primary-foreground));
+    padding: 12px 24px;
+    border-radius: calc(var(--radius) - 2px);
+    box-shadow: var(--shadow-elevated);
+    font-weight: 600;
+    z-index: 10000;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.copy-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Histórico */
+.history-panel {
+    background: var(--gradient-card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    border: 1px solid hsl(var(--border));
+    transition: all 0.3s ease;
+}
+
+.history-panel:hover {
+    box-shadow: var(--shadow-card-hover);
+}
+
+.history-panel h2 {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    color: hsl(var(--foreground));
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.history-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.history-item {
+    padding: 8px 16px;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) + 4px);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: hsl(var(--foreground));
+}
+
+.history-item:hover {
+    border-color: hsl(var(--primary));
+    background: hsl(var(--accent));
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.15);
+}
+
+.empty-message {
+    color: hsl(var(--muted-foreground));
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Scrollbar personalizada */
+.fonts-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.fonts-list::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+}
+
+.fonts-list::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 4px;
+}
+
+.fonts-list::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 220px 1fr 300px;
+    }
+}
+
+@media (max-width: 968px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .controls-panel {
+        position: static;
+    }
+
+    .fonts-panel {
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .main-content {
+        gap: 15px;
+    }
+
+    .text-area-container {
+        padding: 20px;
+    }
+}
+
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importando todas as fontes famosas -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&family=Raleway:wght@300;400;500;600;700;800&family=PT+Sans:wght@400;700&family=Merriweather:wght@300;400;700;900&family=Playfair+Display:wght@400;700;900&family=Lora:wght@400;700&family=Noto+Sans:wght@400;700&family=Ubuntu:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Josefin+Sans:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Bebas+Neue&family=Anton&family=Oleo+Script:wght@400;700&family=Pacifico&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Satisfy&family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700;800&family=Righteous&family=Fredoka+One&family=Comic+Neue:wght@300;400;700&family=Indie+Flower&family=Amatic+SC:wght@400;700&family=Shadows+Into+Light&family=Permanent+Marker&family=Creepster&family=Monoton&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Abril+Fatface&family=Bangers&family=Lobster&family=Righteous&family=Staatliches&family=Titan+One&family=Zilla+Slab:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@300;400;500;600;700&family=Libre+Franklin:wght@300;400;500;600;700;800&family=Hind:wght@300;400;500;600;700&family=Mukta:wght@300;400;500;600;700;800&family=Yanone+Kaffeesatz:wght@300;400;500;600;700&family=Archivo:wght@300;400;500;600;700;800&family=Fira+Sans:wght@300;400;500;600;700;800&family=Inconsolata:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 18-4-4 4-4"/><path d="M4 14v4a2 2 0 0 0 2 2h4"/><path d="M20 10V6a2 2 0 0 0-2-2h-4"/></svg>
+                    Site de Fontes
+                </h1>
+                <p class="subtitle">Explore, teste e favorite as melhores fontes</p>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Painel de Controles -->
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label for="fontSizeInput">Tamanho da Fonte:</label>
+                    <div class="font-size-unified">
+                        <input type="number" id="fontSizeInput" min="8" max="200" value="24" placeholder="24">
+                        <span class="font-size-unit">px</span>
+                        <div class="font-size-quick-menu">
+                            <button type="button" class="quick-size-btn" title="Tamanhos rápidos">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </button>
+                            <div class="quick-size-dropdown" id="quickSizeDropdown">
+                                <div class="quick-size-item" data-size="8">8px</div>
+                                <div class="quick-size-item" data-size="9">9px</div>
+                                <div class="quick-size-item" data-size="10">10px</div>
+                                <div class="quick-size-item" data-size="11">11px</div>
+                                <div class="quick-size-item" data-size="12">12px</div>
+                                <div class="quick-size-item" data-size="14">14px</div>
+                                <div class="quick-size-item" data-size="16">16px</div>
+                                <div class="quick-size-item" data-size="18">18px</div>
+                                <div class="quick-size-item" data-size="20">20px</div>
+                                <div class="quick-size-item" data-size="22">22px</div>
+                                <div class="quick-size-item active" data-size="24">24px</div>
+                                <div class="quick-size-item" data-size="26">26px</div>
+                                <div class="quick-size-item" data-size="28">28px</div>
+                                <div class="quick-size-item" data-size="36">36px</div>
+                                <div class="quick-size-item" data-size="48">48px</div>
+                                <div class="quick-size-item" data-size="72">72px</div>
+                                <div class="quick-size-item" data-size="96">96px</div>
+                                <div class="quick-size-item" data-size="120">120px</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="font-size-hint">Digite o valor ou use os tamanhos rápidos</p>
+                </div>
+
+                <div class="control-group">
+                    <label for="textColor">Cor da Letra:</label>
+                    <input type="color" id="textColor" value="#000000">
+                </div>
+
+                <div class="control-group">
+                    <label for="highlightColor">Cor do Marca Texto:</label>
+                    <input type="color" id="highlightColor" value="#ffff00">
+                    <button id="toggleHighlight" class="toggle-btn">Desativar</button>
+                </div>
+
+                <div class="control-group">
+                    <label for="customFontInput">Adicionar do Google Fonts:</label>
+                    <div class="add-font-container">
+                        <input type="text" id="customFontInput" placeholder="Ex: Bebas Neue" autocomplete="off">
+                        <button type="button" id="addCustomFontBtn" class="add-font-btn" title="Adicionar e Testar">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <button id="clearHistory" class="btn-secondary">Limpar Histórico</button>
+                    <button id="showDeletedBtn" class="btn-secondary" style="margin-top: 10px; background: hsl(var(--foreground)); color: hsl(var(--background));">Listar Fontes para Deletar</button>
+                </div>
+            </div>
+
+            <!-- Área de Texto -->
+            <div class="text-area-container">
+                <div class="text-header">
+                    <h3>Seu Texto</h3>
+                    <button id="copyBtn" class="copy-btn" title="Copiar texto com formatação para Power BI">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>
+                        Copiar
+                    </button>
+                </div>
+                <textarea 
+                    id="textInput" 
+                    placeholder="Digite seu texto aqui para testar as fontes..."
+                >A rápida raposa marrom pula sobre o cão preguiçoso.</textarea>
+                <div id="textPreview" class="text-preview"></div>
+                <p class="powerbi-note">💡 <strong>Dica Power BI:</strong> O texto copiado mantém a fonte e formatação. Cole no Power BI e a fonte aparecerá para todos os usuários!</p>
+            </div>
+
+            <!-- Lista de Fontes -->
+            <div class="fonts-panel">
+                <div class="fonts-header">
+                    <h2>Fontes Disponíveis</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Todas</button>
+                        <button class="filter-btn" data-filter="favorites">Favoritas</button>
+                    </div>
+                </div>
+                <div id="fontsList" class="fonts-list"></div>
+            </div>
+        </div>
+
+        <!-- Resultados em Cards -->
+        <div class="results-section">
+            <div class="results-header">
+                <div class="results-header-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13a7 7 0 0 1 14 0v7h-7Z"/><path d="M11 20V13"/><path d="M15 13H4"/></svg>
+                </div>
+                <div class="results-header-text">
+                    <h2>Resultados da Pesquisa</h2>
+                    <p class="results-subtitle">Clique no ícone de copiar em qualquer card para usar a fonte</p>
+                </div>
+            </div>
+            <div id="resultsGrid" class="results-grid">
+                <!-- Cards serão gerados aqui pelo JavaScript -->
+            </div>
+        </div>
+
+        <!-- Histórico -->
+        <div class="history-panel">
+            <h2>📚 Histórico de Uso</h2>
+            <div id="historyList" class="history-list">
+                <p class="empty-message">Nenhuma fonte usada ainda</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Lista de fontes (será mesclada com fontes customizadas)
+let fonts = [
+    { name: 'Roboto', displayName: 'Roboto' },
+    { name: 'Open Sans', displayName: 'Open Sans' },
+    { name: 'Lato', displayName: 'Lato' },
+    { name: 'Montserrat', displayName: 'Montserrat' },
+    { name: 'Oswald', displayName: 'Oswald' },
+    { name: 'Source Sans Pro', displayName: 'Source Sans Pro' },
+    { name: 'Raleway', displayName: 'Raleway' },
+    { name: 'PT Sans', displayName: 'PT Sans' },
+    { name: 'Merriweather', displayName: 'Merriweather' },
+    { name: 'Playfair Display', displayName: 'Playfair Display' },
+    { name: 'Lora', displayName: 'Lora' },
+    { name: 'Noto Sans', displayName: 'Noto Sans' },
+    { name: 'Ubuntu', displayName: 'Ubuntu' },
+    { name: 'Poppins', displayName: 'Poppins' },
+    { name: 'Nunito', displayName: 'Nunito' },
+    { name: 'Inter', displayName: 'Inter' },
+    { name: 'Work Sans', displayName: 'Work Sans' },
+    { name: 'DM Sans', displayName: 'DM Sans' },
+    { name: 'Space Grotesk', displayName: 'Space Grotesk' },
+    { name: 'Manrope', displayName: 'Manrope' },
+    { name: 'Plus Jakarta Sans', displayName: 'Plus Jakarta Sans' },
+    { name: 'Outfit', displayName: 'Outfit' },
+    { name: 'Josefin Sans', displayName: 'Josefin Sans' },
+    { name: 'Crimson Text', displayName: 'Crimson Text' },
+    { name: 'Cormorant Garamond', displayName: 'Cormorant Garamond' },
+    { name: 'Libre Baskerville', displayName: 'Libre Baskerville' },
+    { name: 'Bebas Neue', displayName: 'Bebas Neue' },
+    { name: 'Anton', displayName: 'Anton' },
+    { name: 'Oleo Script', displayName: 'Oleo Script' },
+    { name: 'Pacifico', displayName: 'Pacifico' },
+    { name: 'Dancing Script', displayName: 'Dancing Script' },
+    { name: 'Great Vibes', displayName: 'Great Vibes' },
+    { name: 'Satisfy', displayName: 'Satisfy' },
+    { name: 'Kalam', displayName: 'Kalam' },
+    { name: 'Caveat', displayName: 'Caveat' },
+    { name: 'Comfortaa', displayName: 'Comfortaa' },
+    { name: 'Quicksand', displayName: 'Quicksand' },
+    { name: 'Rubik', displayName: 'Rubik' },
+    { name: 'Kanit', displayName: 'Kanit' },
+    { name: 'Exo 2', displayName: 'Exo 2' },
+    { name: 'Righteous', displayName: 'Righteous' },
+    { name: 'Fredoka One', displayName: 'Fredoka One' },
+    { name: 'Comic Neue', displayName: 'Comic Neue' },
+    { name: 'Indie Flower', displayName: 'Indie Flower' },
+    { name: 'Amatic SC', displayName: 'Amatic SC' },
+    { name: 'Shadows Into Light', displayName: 'Shadows Into Light' },
+    { name: 'Permanent Marker', displayName: 'Permanent Marker' },
+    { name: 'Monoton', displayName: 'Monoton' },
+    { name: 'Orbitron', displayName: 'Orbitron' },
+    { name: 'Rajdhani', displayName: 'Rajdhani' },
+    { name: 'Abril Fatface', displayName: 'Abril Fatface' },
+    { name: 'Bangers', displayName: 'Bangers' },
+    { name: 'Lobster', displayName: 'Lobster' },
+    { name: 'Staatliches', displayName: 'Staatliches' },
+    { name: 'Titan One', displayName: 'Titan One' },
+    { name: 'Zilla Slab', displayName: 'Zilla Slab' },
+    { name: 'IBM Plex Sans', displayName: 'IBM Plex Sans' },
+    { name: 'IBM Plex Serif', displayName: 'IBM Plex Serif' },
+    { name: 'Libre Franklin', displayName: 'Libre Franklin' },
+    { name: 'Hind', displayName: 'Hind' },
+    { name: 'Mukta', displayName: 'Mukta' },
+    { name: 'Yanone Kaffeesatz', displayName: 'Yanone Kaffeesatz' },
+    { name: 'Archivo', displayName: 'Archivo' },
+    { name: 'Fira Sans', displayName: 'Fira Sans' },
+    { name: 'Inconsolata', displayName: 'Inconsolata' },
+    { name: 'JetBrains Mono', displayName: 'JetBrains Mono' },
+    { name: 'Source Code Pro', displayName: 'Source Code Pro' }
+];
+
+// Estado da aplicação
+let currentFont = 'Inter';
+let fontSize = 24;
+let textColor = '#ffffff';
+let highlightColor = '#2d1e5e';
+let highlightEnabled = false;
+let favorites = JSON.parse(localStorage.getItem('fontFavorites')) || [];
+let history = JSON.parse(localStorage.getItem('fontHistory')) || [];
+let fontsToDelete = JSON.parse(localStorage.getItem('fontsToDelete')) || [];
+let currentFilter = 'all';
+
+// Elementos DOM
+const textInput = document.getElementById('textInput');
+const textPreview = document.getElementById('textPreview');
+const fontSizeInput = document.getElementById('fontSizeInput');
+const quickSizeBtn = document.querySelector('.quick-size-btn');
+const quickSizeDropdown = document.getElementById('quickSizeDropdown');
+const quickSizeItems = document.querySelectorAll('.quick-size-item');
+const textColorPicker = document.getElementById('textColor');
+textColorPicker.value = textColor;
+const highlightColorPicker = document.getElementById('highlightColor');
+highlightColorPicker.value = highlightColor;
+const toggleHighlightBtn = document.getElementById('toggleHighlight');
+
+// Custom Fonts Elements
+const customFontInput = document.getElementById('customFontInput');
+const addCustomFontBtn = document.getElementById('addCustomFontBtn');
+let addedGoogleFonts = JSON.parse(localStorage.getItem('addedGoogleFonts')) || [];
+
+const fontsList = document.getElementById('fontsList');
+const historyList = document.getElementById('historyList');
+const clearHistoryBtn = document.getElementById('clearHistory');
+const showDeletedBtn = document.getElementById('showDeletedBtn');
+const filterButtons = document.querySelectorAll('.filter-btn');
+const copyBtn = document.getElementById('copyBtn');
+const resultsGrid = document.getElementById('resultsGrid');
+
+// Remover fontes duplicadas
+function removeDuplicateFonts() {
+    const seen = new Set();
+    fonts = fonts.filter(font => {
+        const key = font.name.toLowerCase().trim();
+        if (seen.has(key)) {
+            return false;
+        }
+        seen.add(key);
+        return true;
+    });
+}
+
+// Carregar fontes customizadas
+async function loadCustomFonts() {
+    try {
+        const customFonts = [
+  {
+    "name": "CameraPlainVariable",
+    "displayName": "Camera Plain (exemplo)",
+    "files": [
+      { "url": "https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2", "format": "woff2" }
+    ]
+  }
+]
+;
+        
+        customFonts.forEach(fontData => {
+            // Verificar se a fonte já existe antes de adicionar
+            const exists = fonts.some(f => f.name.toLowerCase() === fontData.name.toLowerCase());
+            if (exists) return;
+            
+            // Criar @font-face dinamicamente
+            const fontFace = new FontFace(
+                fontData.name,
+                `url(${fontData.files[0].url}) format('${fontData.files[0].format}')`
+            );
+            
+            fontFace.load().then(loadedFont => {
+                document.fonts.add(loadedFont);
+            }).catch(err => {
+                console.warn(`Erro ao carregar fonte ${fontData.name}:`, err);
+            });
+            
+            // Adicionar à lista de fontes
+            fonts.push({
+                name: fontData.name,
+                displayName: fontData.displayName || fontData.name,
+                isCustom: true
+            });
+        });
+        
+        // Remover duplicatas
+        removeDuplicateFonts();
+        
+        // Re-renderizar após carregar
+        renderFonts();
+    } catch (err) {
+        console.log('Nenhuma fonte customizada encontrada ou erro ao carregar:', err);
+    }
+}
+
+// Adicionar e carregar fontes do Google "On the fly"
+function loadGoogleFontDynamic(fontName, isInitialLoad = false) {
+    if (!fontName.trim()) return;
+    
+    // Check if already in our array
+    const fontExists = fonts.some(f => f.name.toLowerCase() === fontName.toLowerCase());
+    if (fontExists && !isInitialLoad) {
+        if(!isInitialLoad) alert('Esta fonte já está na lista!');
+        return;
+    }
+    
+    const formattedName = fontName.trim();
+    const urlName = formattedName.replace(/ /g, '+');
+    
+    // Create link element for Google Fonts
+    const link = document.createElement('link');
+    link.href = `https://fonts.googleapis.com/css2?family=${urlName}:wght@300;400;500;600;700;800;900&display=swap`;
+    link.rel = 'stylesheet';
+    
+    link.onload = () => {
+        if (!fontExists) {
+            fonts.push({
+                name: formattedName,
+                displayName: formattedName + ' (Nova)'
+            });
+            
+            // Save to LocalStorage if it's a new user interaction
+            if (!isInitialLoad) {
+                if (!addedGoogleFonts.includes(formattedName)) {
+                    addedGoogleFonts.push(formattedName);
+                    localStorage.setItem('addedGoogleFonts', JSON.stringify(addedGoogleFonts));
+                }
+                customFontInput.value = '';
+                removeDuplicateFonts();
+                renderFonts();
+                renderResults();
+                // Select and test immediately
+                selectFont(formattedName);
+            }
+        }
+    };
+    
+    link.onerror = () => {
+        if(!isInitialLoad) alert('Não foi possível carregar a fonte. Verifique se o nome está escrito corretamente como no Google Fonts.');
+        link.remove();
+    };
+    
+    document.head.appendChild(link);
+}
+
+// Escutar eventos do input de nova fonte
+addCustomFontBtn.addEventListener('click', () => {
+    loadGoogleFontDynamic(customFontInput.value);
+});
+
+customFontInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        loadGoogleFontDynamic(customFontInput.value);
+    }
+});
+
+// Copiar texto com formatação para Power BI
+async function copyToClipboard() {
+    const text = textInput.value || textInput.placeholder;
+    if (!text.trim()) {
+        alert('Digite algum texto antes de copiar!');
+        return;
+    }
+    
+    // Escapar HTML para segurança
+    const escapeHtml = (str) => {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    };
+    
+    const escapedText = escapeHtml(text).replace(/\n/g, '<br>');
+    
+    // Criar HTML com formatação preservada (Power BI aceita HTML)
+    const htmlContent = `<span style="font-family: '${currentFont}', sans-serif; font-size: ${fontSize}px; color: ${textColor};${highlightEnabled ? ` background-color: ${highlightColor};` : ''}">${escapedText}</span>`;
+    
+    try {
+        // Método 1: Tentar copiar como HTML (melhor para Power BI)
+        if (navigator.clipboard && navigator.clipboard.write) {
+            const clipboardItem = new ClipboardItem({
+                'text/html': new Blob([htmlContent], { type: 'text/html' }),
+                'text/plain': new Blob([text], { type: 'text/plain' })
+            });
+            
+            await navigator.clipboard.write([clipboardItem]);
+            
+            showCopyFeedback('✓ Copiado!');
+            return;
+        }
+    } catch (err) {
+        console.log('ClipboardItem não suportado, tentando método alternativo...');
+    }
+    
+    // Método 2: Usar execCommand (fallback para navegadores mais antigos)
+    try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        // Criar elemento temporário com formatação
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'fixed';
+        tempDiv.style.left = '-9999px';
+        tempDiv.innerHTML = htmlContent;
+        document.body.appendChild(tempDiv);
+        
+        // Selecionar e copiar
+        const range = document.createRange();
+        range.selectNodeContents(tempDiv);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        
+        const success = document.execCommand('copy');
+        
+        document.body.removeChild(textarea);
+        document.body.removeChild(tempDiv);
+        selection.removeAllRanges();
+        
+        if (success) {
+            showCopyFeedback('✓ Copiado!');
+        } else {
+            throw new Error('execCommand falhou');
+        }
+    } catch (err) {
+        // Método 3: Copiar apenas texto simples
+        try {
+            await navigator.clipboard.writeText(text);
+            showCopyFeedback('✓ Texto copiado (sem formatação)');
+        } catch (err2) {
+            alert('Erro ao copiar. Tente selecionar o texto manualmente.');
+        }
+    }
+}
+
+// Mostrar feedback visual
+function showCopyFeedback(message) {
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = message;
+    copyBtn.classList.add('copied');
+    
+    setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.classList.remove('copied');
+    }, 2000);
+}
+
+// Categorizar fontes com classificação melhorada
+function getFontCategories(fontName) {
+    const categories = [];
+    const name = fontName.toLowerCase();
+    
+    // Sans-Serif Modernas
+    if (['roboto', 'open sans', 'lato', 'montserrat', 'poppins', 'inter', 'work sans', 'dm sans', 'space grotesk', 'manrope', 'plus jakarta sans', 'outfit', 'josefin sans', 'nunito', 'raleway', 'pt sans', 'noto sans', 'ubuntu', 'hind', 'mukta', 'archivo', 'fira sans'].includes(name)) {
+        categories.push('Sans-Serif');
+    }
+    
+    // Serif (com serifas)
+    if (['merriweather', 'playfair display', 'lora', 'crimson text', 'cormorant garamond', 'libre baskerville', 'ibm plex serif', 'libre franklin', 'zilla slab'].includes(name)) {
+        categories.push('Serif');
+    }
+    
+    // Script/Cursivo
+    if (['dancing script', 'pacifico', 'great vibes', 'satisfy', 'caveat', 'oleo script', 'kalam', 'indie flower', 'shadows into light', 'permanent marker', 'comic neue', 'amatic sc'].includes(name)) {
+        categories.push('Script');
+    }
+    
+    // Display (para títulos e destaques)
+    if (['bebas neue', 'anton', 'oswald', 'righteous', 'fredoka one', 'staatliches', 'titan one', 'bangers', 'lobster', 'abril fatface', 'yanone kaffeesatz'].includes(name)) {
+        categories.push('Display');
+    }
+    
+    // Monoespaçada (código)
+    if (['inconsolata', 'jetbrains mono', 'source code pro'].includes(name)) {
+        categories.push('Monoespaçada');
+    }
+    
+    // Futurista/Tecnológica
+    if (['monoton', 'orbitron', 'rajdhani', 'exo 2', 'rubik', 'kanit', 'quicksand', 'comfortaa'].includes(name)) {
+        categories.push('Futurista');
+    }
+    
+    // Categorias de estilo
+    if (['bebas neue', 'anton', 'oswald', 'righteous', 'staatliches', 'fredoka one', 'titan one', 'bangers'].includes(name)) {
+        categories.push('Bold');
+    }
+    
+    if (['dancing script', 'pacifico', 'great vibes', 'satisfy', 'caveat', 'oleo script'].includes(name)) {
+        categories.push('Elegante');
+    }
+    
+    if (['playfair display', 'cormorant garamond', 'libre baskerville', 'merriweather'].includes(name)) {
+        categories.push('Clássica');
+    }
+    
+    if (['roboto', 'inter', 'poppins', 'montserrat', 'open sans'].includes(name)) {
+        categories.push('Popular');
+    }
+    
+    // Se não encontrou nenhuma categoria, classificar como básica
+    if (categories.length === 0) {
+        categories.push('Básica');
+    }
+    
+    return categories;
+}
+
+// Renderizar cards de resultados
+function renderResults() {
+    const text = textInput.value || textInput.placeholder;
+    resultsGrid.innerHTML = '';
+    
+    // Ordenar fontes: favoritas primeiro
+    const sortedFonts = [...fonts].sort((a, b) => {
+        const aIsFavorite = favorites.includes(a.name);
+        const bIsFavorite = favorites.includes(b.name);
+        
+        if (aIsFavorite && !bIsFavorite) return -1;
+        if (!aIsFavorite && bIsFavorite) return 1;
+        return 0; // Mantém ordem original se ambas são favoritas ou não são
+    });
+    
+    sortedFonts.forEach(font => {
+        if (fontsToDelete.includes(font.name)) return;
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        if (favorites.includes(font.name)) {
+            card.classList.add('favorited');
+        }
+        
+        // Container para botões no topo direito
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'result-buttons';
+        
+        // Botão de favoritar
+        const favoriteBtn = document.createElement('button');
+        favoriteBtn.className = 'result-favorite-btn';
+        
+        const starSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="${favorites.includes(font.name) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+        favoriteBtn.innerHTML = starSvg;
+        favoriteBtn.title = favorites.includes(font.name) ? 'Remover dos favoritos' : 'Adicionar aos favoritos';
+        if (favorites.includes(font.name)) {
+            favoriteBtn.classList.add('favorited');
+        }
+        favoriteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(font.name);
+            renderResults(); // Re-renderizar para atualizar visual
+            renderFonts(); // Atualizar lista lateral também
+        });
+        
+        // Botão de copiar
+        const copyIcon = document.createElement('button');
+        copyIcon.className = 'result-copy-btn';
+        copyIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg>`;
+        copyIcon.title = 'Copiar texto com esta fonte';
+        copyIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            copyFontText(font.name, text);
+        });
+        
+        buttonsContainer.appendChild(favoriteBtn);
+        buttonsContainer.appendChild(copyIcon);
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'result-copy-btn';
+        deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
+        deleteBtn.title = 'Marcar para deletar';
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(confirm('Marcar a fonte ' + font.name + ' para deletar?')) {
+                fontsToDelete.push(font.name);
+                localStorage.setItem('fontsToDelete', JSON.stringify(fontsToDelete));
+                renderResults();
+                renderFonts();
+            }
+        });
+        buttonsContainer.appendChild(deleteBtn);
+        
+        const textPreview = document.createElement('div');
+        textPreview.className = 'result-text';
+        textPreview.textContent = text;
+        textPreview.style.fontFamily = font.name;
+        textPreview.style.fontSize = fontSize + 'px';
+        textPreview.style.color = textColor;
+        if (highlightEnabled) {
+            textPreview.style.backgroundColor = highlightColor;
+        }
+        
+        const categories = getFontCategories(font.name);
+        const tagsContainer = document.createElement('div');
+        tagsContainer.className = 'result-tags';
+        categories.forEach((cat, index) => {
+            const tag = document.createElement('span');
+            tag.className = 'result-tag';
+            
+            if (cat === 'Sans-Serif' || cat === 'Popular') tag.classList.add('tag-sans-serif');
+            else if (cat === 'Serif' || cat === 'Clássica' || cat === 'Elegante') tag.classList.add('tag-serif');
+            else if (cat === 'Script') tag.classList.add('tag-script');
+            else if (cat === 'Display' || cat === 'Futurista' || cat === 'Bold') tag.classList.add('tag-display');
+            else tag.classList.add('tag-mono');
+            
+            tag.textContent = cat;
+            tagsContainer.appendChild(tag);
+        });
+        
+        card.appendChild(buttonsContainer);
+        card.appendChild(textPreview);
+        card.appendChild(tagsContainer);
+        
+        resultsGrid.appendChild(card);
+    });
+}
+
+// Copiar texto com fonte específica
+async function copyFontText(fontName, text) {
+    const htmlContent = `<span style="font-family: '${fontName}', sans-serif; font-size: ${fontSize}px; color: ${textColor};${highlightEnabled ? ` background-color: ${highlightColor};` : ''}">${text.replace(/\n/g, '<br>')}</span>`;
+    
+    try {
+        const clipboardItem = new ClipboardItem({
+            'text/html': new Blob([htmlContent], { type: 'text/html' }),
+            'text/plain': new Blob([text], { type: 'text/plain' })
+        });
+        
+        await navigator.clipboard.write([clipboardItem]);
+        
+        // Feedback visual
+        showCardCopyFeedback();
+    } catch (err) {
+        try {
+            await navigator.clipboard.writeText(text);
+            showCardCopyFeedback();
+        } catch (err2) {
+            alert('Erro ao copiar. Tente novamente.');
+        }
+    }
+}
+
+// Mostrar feedback de cópia nos cards
+function showCardCopyFeedback() {
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+    notification.textContent = '✓ Copiado!';
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 2000);
+}
+
+// Inicialização
+async function init() {
+    // Carregar custom fonts salvas pelo usuário
+    addedGoogleFonts.forEach(font => {
+        loadGoogleFontDynamic(font, true);
+    });
+
+    // Remover duplicatas da lista inicial
+    removeDuplicateFonts();
+    await loadCustomFonts();
+    renderFonts();
+    updatePreview();
+    renderResults();
+    renderHistory();
+    loadSavedSettings();
+}
+
+// Carregar configurações salvas
+function loadSavedSettings() {
+    const saved = JSON.parse(localStorage.getItem('fontSettings')) || {};
+    if (saved.fontSize) {
+        fontSize = Math.max(8, Math.min(200, saved.fontSize));
+        fontSizeInput.value = fontSize;
+        updateQuickSizeActive();
+    }
+    if (!fontSizeInput.value) fontSizeInput.value = fontSize;
+    if (saved.textColor) {
+        textColor = saved.textColor;
+        textColorPicker.value = textColor;
+    }
+    if (saved.highlightColor) {
+        highlightColor = saved.highlightColor;
+        highlightColorPicker.value = highlightColor;
+    }
+    if (saved.highlightEnabled !== undefined) {
+        highlightEnabled = saved.highlightEnabled;
+        toggleHighlightBtn.textContent = highlightEnabled ? 'Desativar' : 'Ativar';
+        toggleHighlightBtn.classList.toggle('active', highlightEnabled);
+    }
+    if (saved.currentFont) {
+        currentFont = saved.currentFont;
+    }
+}
+
+// Salvar configurações
+function saveSettings() {
+    localStorage.setItem('fontSettings', JSON.stringify({
+        fontSize,
+        textColor,
+        highlightColor,
+        highlightEnabled,
+        currentFont
+    }));
+}
+
+// Renderizar lista de fontes
+function renderFonts() {
+    fontsList.innerHTML = '';
+    
+    let fontsToShow = fonts;
+    if (currentFilter === 'favorites') {
+        fontsToShow = fonts.filter(font => favorites.includes(font.name));
+    }
+    
+    fontsToShow.forEach(font => {
+        if (fontsToDelete.includes(font.name)) return;
+        const fontItem = document.createElement('div');
+        fontItem.className = 'font-item';
+        if (font.name === currentFont) {
+            fontItem.classList.add('active');
+        }
+        
+        const fontName = document.createElement('div');
+        fontName.className = 'font-name';
+        fontName.textContent = font.displayName;
+        fontName.style.fontFamily = font.name;
+        
+        const starBtn = document.createElement('button');
+        starBtn.className = 'star-btn';
+        const starSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="${favorites.includes(font.name) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+        starBtn.innerHTML = starSvg;
+        if (favorites.includes(font.name)) {
+            starBtn.classList.add('favorited');
+        }
+        
+        starBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(font.name);
+        });
+        
+        fontItem.addEventListener('click', () => {
+            selectFont(font.name);
+        });
+        
+        fontItem.appendChild(fontName);
+        
+        const btnGroup = document.createElement('div');
+        btnGroup.style.display = 'flex';
+        btnGroup.style.gap = '5px';
+        btnGroup.appendChild(starBtn);
+        
+        const deleteListBtn = document.createElement('button');
+        deleteListBtn.className = 'star-btn';
+        deleteListBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>`;
+        deleteListBtn.title = 'Marcar para deletar';
+        deleteListBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if(confirm('Marcar a fonte ' + font.name + ' para deletar?')) {
+                fontsToDelete.push(font.name);
+                localStorage.setItem('fontsToDelete', JSON.stringify(fontsToDelete));
+                renderResults();
+                renderFonts();
+            }
+        });
+        btnGroup.appendChild(deleteListBtn);
+
+        fontItem.appendChild(btnGroup);
+        fontsList.appendChild(fontItem);
+    });
+}
+
+// Selecionar fonte
+function selectFont(fontName) {
+    currentFont = fontName;
+    addToHistory(fontName);
+    updatePreview();
+    renderFonts();
+    saveSettings();
+}
+
+// Adicionar ao histórico
+function addToHistory(fontName) {
+    // Remove se já existe
+    history = history.filter(f => f !== fontName);
+    // Adiciona no início
+    history.unshift(fontName);
+    // Limita a 20 itens
+    history = history.slice(0, 20);
+    localStorage.setItem('fontHistory', JSON.stringify(history));
+    renderHistory();
+}
+
+// Renderizar histórico
+function renderHistory() {
+    historyList.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<p class="empty-message">Nenhuma fonte usada ainda</p>';
+        return;
+    }
+    
+    history.forEach(fontName => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        historyItem.textContent = fontName;
+        historyItem.style.fontFamily = fontName;
+        historyItem.addEventListener('click', () => {
+            selectFont(fontName);
+        });
+        historyList.appendChild(historyItem);
+    });
+}
+
+// Toggle favorito
+function toggleFavorite(fontName) {
+    if (favorites.includes(fontName)) {
+        favorites = favorites.filter(f => f !== fontName);
+    } else {
+        favorites.push(fontName);
+    }
+    localStorage.setItem('fontFavorites', JSON.stringify(favorites));
+    renderFonts();
+}
+
+// Atualizar preview
+function updatePreview() {
+    const text = textInput.value || textInput.placeholder;
+    textPreview.textContent = text;
+    textPreview.style.fontFamily = currentFont;
+    textPreview.style.fontSize = fontSize + 'px';
+    textPreview.style.color = textColor;
+    
+    if (highlightEnabled) {
+        textPreview.style.backgroundColor = highlightColor;
+    } else {
+        textPreview.style.backgroundColor = 'transparent';
+    }
+    
+    // Atualizar cards de resultados também
+    renderResults();
+}
+
+// Event Listeners
+textInput.addEventListener('input', () => {
+    updatePreview();
+});
+
+// Atualizar item ativo no dropdown de tamanhos rápidos
+function updateQuickSizeActive() {
+    quickSizeItems.forEach(item => {
+        const itemSize = parseInt(item.dataset.size, 10);
+        if (itemSize === fontSize) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
+
+// Tamanho: digitar em pixels
+fontSizeInput.addEventListener('input', (e) => {
+    let val = parseInt(e.target.value, 10);
+    if (isNaN(val)) return;
+    val = Math.max(8, Math.min(200, val));
+    fontSize = val;
+    e.target.value = val;
+    updateQuickSizeActive();
+    updatePreview();
+    saveSettings();
+});
+
+fontSizeInput.addEventListener('change', (e) => {
+    let val = parseInt(e.target.value, 10);
+    if (isNaN(val) || val < 8) val = 8;
+    if (val > 200) val = 200;
+    fontSize = val;
+    e.target.value = val;
+    updateQuickSizeActive();
+    updatePreview();
+    saveSettings();
+});
+
+// Toggle dropdown de tamanhos rápidos
+quickSizeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    quickSizeDropdown.classList.toggle('show');
+});
+
+// Fechar dropdown ao clicar fora
+document.addEventListener('click', (e) => {
+    if (!quickSizeBtn.contains(e.target) && !quickSizeDropdown.contains(e.target)) {
+        quickSizeDropdown.classList.remove('show');
+    }
+});
+
+// Selecionar tamanho rápido
+quickSizeItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const size = parseInt(item.dataset.size, 10);
+        fontSize = size;
+        fontSizeInput.value = size;
+        updateQuickSizeActive();
+        updatePreview();
+        saveSettings();
+        quickSizeDropdown.classList.remove('show');
+    });
+});
+
+textColorPicker.addEventListener('input', (e) => {
+    textColor = e.target.value;
+    updatePreview();
+    saveSettings();
+});
+
+highlightColorPicker.addEventListener('input', (e) => {
+    highlightColor = e.target.value;
+    if (highlightEnabled) {
+        updatePreview();
+    }
+    saveSettings();
+});
+
+toggleHighlightBtn.addEventListener('click', () => {
+    highlightEnabled = !highlightEnabled;
+    toggleHighlightBtn.textContent = highlightEnabled ? 'Desativar' : 'Ativar';
+    toggleHighlightBtn.classList.toggle('active', highlightEnabled);
+    updatePreview();
+    saveSettings();
+});
+
+clearHistoryBtn.addEventListener('click', () => {
+    if (confirm('Tem certeza que deseja limpar o histórico?')) {
+        history = [];
+        localStorage.setItem('fontHistory', JSON.stringify(history));
+        renderHistory();
+    }
+});
+
+showDeletedBtn.addEventListener('click', () => {
+    if (fontsToDelete.length === 0) {
+        alert('Nenhum fonte marcada para exclusão.');
+    } else {
+        if(confirm('Fontes marcadas para deletar:\n' + fontsToDelete.join('\\n') + '\n\nDeseja copiar esta lista para enviar ao Aurel/IA?')) {
+            navigator.clipboard.writeText(fontsToDelete.join(', ')).then(() => alert('Copiado para a área de transferência!'));
+        }
+    }
+});
+
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        renderFonts();
+    });
+});
+
+// Botão copiar
+copyBtn.addEventListener('click', copyToClipboard);
+
+// Inicializar quando a página carregar
+init();
+
+</script>
+</body>
+</html>
